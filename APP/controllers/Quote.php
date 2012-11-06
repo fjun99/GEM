@@ -55,42 +55,58 @@ class QuoteController extends Ctrl_Base {
 	public function showAction($id = 0) {
 		if ($id != 0) {
 			$tMQ = new QuoteModel ();
-			$tMQ->where("delflag=0");
+			$tMQ->where ( "delflag=0" );
 			$quote = $tMQ->fRow ( $id );
 			
+			$tMR = new QTrelationModel ();
+			$tMR->where ( "qid = " . $quote ['id'] );
+			$tMR->join ( "tags t", "t.id = tid", "LEFT" );
+			$tags = $tMR->fList ();
 			
-			$tMR = new QTrelationModel();
-			$tMR->where("qid = ".$quote['id']);
-			$tMR->join("tags t", "t.id = tid", "LEFT");
-			$tags = $tMR->fList();
-			
-			$quote['tags'] = $tags;
+			$quote ['tags'] = $tags;
 			
 			$this->assign ( "quote", $quote );
+		
+		}
+	}
+	
+	public function showinAction($id = 0) {
+		if ($id != 0) {
+			$tMQ = new QuoteModel ();
+			$tMQ->where ( "delflag=0" );
+			$quote = $tMQ->fRow ( $id );
 			
+			$tMR = new QTrelationModel ();
+			$tMR->where ( "qid = " . $quote ['id'] );
+			$tMR->join ( "tags t", "t.id = tid", "LEFT" );
+			$tags = $tMR->fList ();
+			
+			$quote ['tags'] = $tags;
+			
+			$this->assign ( "quote", $quote );
+		
 		}
 	}
 	
 	public function listAction($tid = 0) {
 		
 		if ($tid != 0) {
-			$tMR = new QTrelationModel();
-			$tMR->join("quotes q", "q.id = qid", "LEFT");
-			$tMR->where("tid = ".$tid." and q.delflag = 0");
-			$tMR->order("q.id desc");
-			$_quotes = $tMR->fList();	
-
-			$tMT = new TagModel();
-			$tMT->where("delflag = 0");
-			$tag = $tMT->fRow($tid);
-			$this->assign("tag", $tag);
-		}else{
+			$tMR = new QTrelationModel ();
+			$tMR->join ( "quotes q", "q.id = qid", "LEFT" );
+			$tMR->where ( "tid = " . $tid . " and q.delflag = 0" );
+			$tMR->order ( "q.id desc" );
+			$_quotes = $tMR->fList ();
+			
+			$tMT = new TagModel ();
+			$tMT->where ( "delflag = 0" );
+			$tag = $tMT->fRow ( $tid );
+			$this->assign ( "tag", $tag );
+		} else {
 			$tMQ = new QuoteModel ();
-			$_quotes = $tMQ->where ( "quotes.delflag=0")->order ( "quotes.id desc" )->fList ();
+			$_quotes = $tMQ->where ( "quotes.delflag=0" )->order ( "quotes.id desc" )->fList ();
 		}
 		$quotes = array ();
 		foreach ( $_quotes as $quote ) {
-			
 			
 			$tMR = new QTrelationModel ();
 			$quote ['tags'] = $tMR->join ( "tags t", "t.id = tid", "LEFT" )->where ( "qid = " . $quote ['id'] . " and delflag = 0" )->order ( 'tid' )->fList ();
@@ -98,7 +114,7 @@ class QuoteController extends Ctrl_Base {
 			$quotes [] = $quote;
 		}
 		
-//		exit;
+		//		exit;
 		$this->assign ( 'quotes', $quotes );
 	}
 	
@@ -126,13 +142,13 @@ class QuoteController extends Ctrl_Base {
 		}
 	}
 	
-	public function deltagAction($qid = 0, $tid = 0){
-		if($tid != 0 && $qid != 0){
-			$tMR = new QTrelationModel();
-			if($tMR->where("tid = ".$tid." and qid = ".$qid)->del()){
-				$this->showMsg("删除成功");
-			}else{
-				$this->showMsg("删除失败");
+	public function deltagAction($qid = 0, $tid = 0) {
+		if ($tid != 0 && $qid != 0) {
+			$tMR = new QTrelationModel ();
+			if ($tMR->where ( "tid = " . $tid . " and qid = " . $qid )->del ()) {
+				$this->showMsg ( "删除成功" );
+			} else {
+				$this->showMsg ( "删除失败" );
 			}
 		}
 	}

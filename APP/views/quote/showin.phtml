@@ -22,36 +22,25 @@
       color: #5a5a5a;
     }
 
-    .navbar-wrapper {    	
+    .navbar-wrapper {
       position: relative;
       z-index: 10;
       margin-top: 20px;
-      margin-bottom: -90px; /* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
+/*      margin-bottom: -90px; *//* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
     }
-
+    
     /* quote  gem box */
     .gembox{
-    	padding:20px;
     }
 
-    .gembox:hover{
-    	background:#FFDD00;
-    }
-
-    .gembox a:hover{
-		text-decoration:none;
-	}
-	
-
-    a, a:hover{
+	a, a:hover{
 		color: #000;
 	}
-    
 
     
     /* Carousel base class */
     .carousel {
-      margin-bottom: 40px;
+      margin-bottom: 60px;
     }
 
     .carousel .container {
@@ -72,11 +61,11 @@
     .carousel-caption {
       background-color: transparent;
       position: static;
-      max-width: 650px;
+      max-width: 550px;
       padding: 0 20px;
-      margin-bottom: 50px;
+      margin-bottom: 100px;
     }
-    .carousel-caption h1,h2{
+    .carousel-caption h1{
       margin: 0;
       line-height: 1.25;
       color: #fff;
@@ -112,10 +101,9 @@
     <![endif]-->
 
     <!-- Fav and touch icons -->
-    
-<!--
+ <!--
     <link rel="shortcut icon" href="../assets/ico/favicon.ico">
--->
+  -->
 
 </head>
 
@@ -141,7 +129,8 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="/">Home</a></li>
-<!--               <li><a href="#about">About</a></li>
+<!--               
+              <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
                -->
             </ul>
@@ -153,75 +142,40 @@
 
 
 
-    <!-- Carousel
-    ================================================== -->
-    <div class="carousel">
-      <div class="carousel-inner">
-
-        <div class="item active">
-          <img src="/bootstrap/img/personal_header_img.jpg" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-            <h2><?php echo $quotes[0]['quote']?></h2>
-            <h2 class="pull-right">
-            <?php if(isset($tag)){
-            echo $tag['tag'];	
-            }
-            ?>
-            </h2>
-
-            </div>
-          </div>
-        </div>
-        
-      </div>
-    </div><!-- /.carousel -->
-
-
 
 
 
     <div class="container">
 
           
-          <div class="row-fluid">
-
-			<?php 
-			$i = 0;
-			if(is_array($quotes) && count($quotes)){
-			foreach($quotes as $quote){
-			?>
-			
-            <div class="span4 gembox">
-              <p class="lead"><a href="/quote/showin/id/<?php echo $quote['id']?>">
-              <?php echo $quote['quote']?>
-			 </a></p>
-			 <p><?php echo $quote['author']?></p>
+          <div class="row-fluid gembox">
+			<div class="span2"></div>
+            <div class="span8">
+              <p class="lead"><?php echo $quote['author']?></p>
+              <p class="lead"><?php echo $quote['quote']?></p>
+              
               <p><?php echo $quote['description']?></p>
-              <p class="pull-right"><a  href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=2115890114',u=z||d.location,p=['&url=',e(u),'&title=',e(t||d.title),'&source=',e(r),'&sourceUrl=',e(l),'&content=',c||'gb2312','&pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','','<?php echo $quote['quote']?> —— <?php echo $quote['author']?>','http://t.bbwc.cn/quote/show/id/<?php echo $quote['id']?>','utf-8'));"><i class="icon-share"></i><small>分享到微博</small></a></p>
-              <?php 
+              
+              <p class="pull-right"><a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=2115890114',u=z||d.location,p=['&url=',e(u),'&title=',e(t||d.title),'&source=',e(r),'&sourceUrl=',e(l),'&content=',c||'gb2312','&pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','','<?php echo $quote['quote']?> —— <?php echo $quote['author']?>','http://t.bbwc.cn/quote/show/id/<?php echo $quote['id']?>','utf-8'));"><i class="icon-share"></i><small>分享到微博</small></a></p>
+              <?php
               if(is_array($quote['tags']) && count($quote['tags'])){
               	echo "<p><i class=\"icon-tag\"></i> <small>";
               	foreach($quote['tags'] as $tag){
-             	echo "<a href=\"/quote/list/tid/".$tag['id']."\">".$tag['tag']."</a> ";
+              		echo "<a href=\"/quote/list/tid/".$tag['tid']."\">".$tag['tag']."</a> ";
               	}
               	echo "</small></p>";
               }
               ?>
             </div><!--/span-->
+			<div class="span2"></div>
 			
-            
-			<?php 
-			$i++;
-			if($i%3==0){
-				echo "</div>";
-				echo "<div class=\"row-fluid\">";
-			}
-			}
-			}
-			?>
           </div><!--/row-->
           
+          
+
+
+
+
       <hr>
 
       <!-- FOOTER -->
@@ -231,8 +185,6 @@
       </footer>
 
     </div>
-
-
   </body>
 </html>
 
