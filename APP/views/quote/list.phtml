@@ -136,11 +136,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">GEM</a>
+          <a class="brand" href="/">GEM</a>
           <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="/">Home</a></li>
 <!--               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
                -->
@@ -198,15 +198,15 @@
 			 </a></p>
               <p><?php echo $quote['description']?></p>
               <p class="pull-right"><a  href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=2115890114',u=z||d.location,p=['&url=',e(u),'&title=',e(t||d.title),'&source=',e(r),'&sourceUrl=',e(l),'&content=',c||'gb2312','&pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','','<?php echo $quote['quote']?> —— <?php echo $quote['author']?>','http://t.bbwc.cn/quote/show/id/<?php echo $quote['id']?>','utf-8'));"><i class="icon-share"></i><small>分享到微博</small></a></p>
-              <p><i class="icon-tag"></i> <small>
               <?php 
               if(is_array($quote['tags']) && count($quote['tags'])){
+              	echo "<p><i class=\"icon-tag\"></i> <small>";
               	foreach($quote['tags'] as $tag){
              	echo "<a href=\"/quote/list/tid/".$tag['id']."\">".$tag['tag']."</a> ";
               	}
+              	echo "</small></p>";
               }
               ?>
-              </small></p>              
             </div><!--/span-->
 			
             
