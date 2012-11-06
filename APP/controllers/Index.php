@@ -8,6 +8,8 @@ class IndexController extends Ctrl_Base{
 	 */
 	public function indexAction(){
 		
+		return false;
+		
 		$this->redirect("/quote/list/");
 		return true;
 		$tMQ = new QuoteModel ();
