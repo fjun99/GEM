@@ -7,6 +7,9 @@ class IndexController extends Ctrl_Base{
 	 * 首页
 	 */
 	public function indexAction(){
+		
+		$this->redirect("/quote/list/");
+		return true;
 		$tMQ = new QuoteModel ();
 		$_quotes = $tMQ->where("delflag=0")->order ( "id desc" )->fList ();
 		$quotes = array ();
