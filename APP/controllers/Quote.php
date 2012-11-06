@@ -59,7 +59,7 @@ class QuoteController extends Ctrl_Base {
 			$quote = $tMQ->fRow ( $id );
 			
 			$tMR = new QTrelationModel ();
-			$tMR->where ( "qid = " . $quote ['id'] );
+			$tMR->where ( "qid = " . $quote ['id']." and delflag = 0" );
 			$tMR->join ( "tags t", "t.id = tid", "LEFT" );
 			$tags = $tMR->fList ();
 			
@@ -77,7 +77,7 @@ class QuoteController extends Ctrl_Base {
 			$quote = $tMQ->fRow ( $id );
 			
 			$tMR = new QTrelationModel ();
-			$tMR->where ( "qid = " . $quote ['id'] );
+			$tMR->where ( "qid = " . $quote ['id']." and delflag = 0" );
 			$tMR->join ( "tags t", "t.id = tid", "LEFT" );
 			$tags = $tMR->fList ();
 			
