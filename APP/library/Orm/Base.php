@@ -275,6 +275,7 @@ class Orm_Base{
 		empty($tOpt['group']) || $tSql.= ' GROUP BY '.$tOpt['group'];
 		empty($tOpt['order']) || $tSql.= ' ORDER BY '.$tOpt['order'];
 		empty($tOpt['limit']) || $tSql.= ' LIMIT '.$tOpt['limit'];
+//		echo $tSql;
 		return $this->query($tSql);
 	}
 

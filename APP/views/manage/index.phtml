@@ -1,113 +1,111 @@
-<?php
-include PATH_TPL . "/tpl.header.phtml"
-?>
-<div class="mod">
-<div class="hd">
-<h3 class="title"></h3>
-</div>
-<div class="bd">
-<table class="table_s01" width="100%">
-<tbody>
-<tr>
-<th>
-quote:<br />
-<form name="add_quote" action="/quote/add/" method="post">
-author: <input type="text" name="author" /><br />
-quote: <textarea rows="10" cols="25" name="quote"></textarea><br />
-description: <input type="text" name="description" /><br />
-link: <input type="text" name="link" /><br />
-<input type="submit" name="submit" value="submit" /><br />
-</form>
-</th>
-<th>
-标签：<br />
-<form name="add_tag" action="/tag/add/" method="post">
-tag: <input type="text" name="tag" /><br />
-<input type="submit" name="submit" value="submit" /><br />
-</form>
-</th>
-</tr>
-<tr>
-<th>
-&nbsp;
-</th>
-</tr>
-</tbody>
-</table>
-<table class="table_s01" width="100%">
-	<thead>
-	<tr>
-	<th>Quote</th>
-	</tr>
-	</thead>
-	<tbody width="100%">
-		<form name="add_relations" id="add_relations" method="post" action="/Quote/addtag">
-		<?php
-		foreach ( $quotes as $quote ) {
-			?>
-		
-		<tr>
-			<th><input type="checkbox" name="qid[]" value="<?php echo $quote['id']?>" /></th>
-			<th width="60%">
-			<h4><?php echo $quote['quote']?></h4>
-			<h6><?php echo $quote['description']?></h6>
-			<h6>by <?php echo $quote['author']?></h6>
-			<?php 
-			if(is_array($quote['tags']) && count($quote['tags'])){
-				echo "<h6>tags:&nbsp;";
-				foreach($quote['tags'] as $tag){
-					echo $tag['tag']."&nbsp;";
-				}
-				echo "</h6>";
-			}
-			?>
-			<h6><?php echo $quote['createtime']?></h6>
-			<h6><a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=2115890114',u=z||d.location,p=['&url=',e(u),'&title=',e(t||d.title),'&source=',e(r),'&sourceUrl=',e(l),'&content=',c||'gb2312','&pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','','<?php echo $quote['quote']?> - <?php echo $quote['author']?>', 'http://t.bbwc.cn/quote/show/id/<?php echo $quote['id']?>', 'utf-8'));">分享至新浪微博</a></h6>
-			</th>
-			
-			<th>
-			[<a href="/quote/del/id/<?php echo $quote['id']?>">删除</a>]
-			</th>
-		</tr>
-		<tr>
-		<th colspan="3"><hr></th>
-		</tr>
-		
-		<?php
-		}
-		?>
-		<input name="tid" value="" type="hidden" id="tid" />
-		</form>
-	</tbody>
-</table>
-<table class="table_s01" width="100%">
-	<thead>
-	<tr>
-	<th>标签</th>
-	</tr>
-	</thead>
-	<tbody width="100%">
-	<?php
-		foreach ( $tags as $tag ) {
-			?>
-		<tr>
-			
-			<th>
-			 <a href="javascript:void(0);" value="<?php echo $tag['id']?>" name="tags[]"><?php echo $tag['tag']?></a>
-			</th>
-			<th>
-			[<a href="/tag/del/id/<?php echo $tag['id']?>">删除</a>]
-			</th>
-			
-		</tr>	
-			
-	<?php 
-		}
-	?>
-	</tbody>
-</table>
-</div>
-</div>
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <title>GEM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <style>
+
+    /* GLOBAL STYLES
+    -------------------------------------------------- */
+    /* Padding below the footer and lighter body text */
+
+    body {
+      padding-bottom: 40px;
+      color: #5a5a5a;
+    }
+
+    .navbar-wrapper {
+      position: relative;
+      z-index: 10;
+      margin-top: 20px;
+/*      margin-bottom: -90px; *//* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
+    }
+    
+    /* quote  gem box */
+    .gembox{
+    }
+
+	a, a:hover{
+		color: #000;
+	}
+
+    
+    /* Carousel base class */
+    .carousel {
+      margin-bottom: 60px;
+    }
+
+    .carousel .container {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    .carousel .item {
+      height: 300px;
+    }
+    .carousel img {
+      min-width: 100%;
+      height: 300px;
+    }
+
+    .carousel-caption {
+      background-color: transparent;
+      position: static;
+      max-width: 550px;
+      padding: 0 20px;
+      margin-bottom: 100px;
+    }
+    .carousel-caption h1{
+      margin: 0;
+      line-height: 1.25;
+      color: #fff;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    }
+
+
+    /* RESPONSIVE CSS
+    -------------------------------------------------- */
+
+    @media (max-width: 979px) {
+
+	}
+
+
+    @media (max-width: 767px) {
+
+      .navbar-inner {
+        margin: -20px;
+      }
+
+      .carousel {
+        margin-left: -20px;
+        margin-right: -20px;
+      }
+
+    }
+    </style>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+ <!--
+    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+  -->
+<script type="text/javascript" src="/js/wvke.com.js"></script>
+<script type="text/javascript" src="http://s1.cdn.imlady.bbwc.cn/statics/js/modernlady/jquery-1.4.4.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	$("#tid").val(0);
@@ -122,6 +120,181 @@ $(function(){
 		}
 	});
 });
+
+$(function(){
+	$("a[name='deltag']").click(function(){
+		//alert($(this).attr("qid")+"+"+$(this).attr("tid"));
+		//return false;
+		var qid = $(this).attr("qid");
+		var tid = $(this).attr("tid");
+
+		if(window.confirm("确认要删除标签吗？")){
+			window.location = "/quote/deltag/qid/"+qid+"/tid/"+tid;
+		}
+		return false;
+		
+	});
+});
 </script>
-</body>
+</head>
+
+  <body>
+
+
+
+    <!-- NAVBAR
+    ================================================== -->
+    <!-- Wrap the .navbar in .container to center it on the page and provide easy way to target it with .navbar-wrapper. -->
+    <div class="container navbar-wrapper">
+
+      <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+          <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">GEM</a>
+          <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+<!--               
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+               -->
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!-- /.navbar-inner -->
+      </div><!-- /.navbar -->
+
+    </div><!-- /.container -->
+
+
+
+<!-- add action -->
+<div class="container">
+          <div class="row-fluid gembox">
+           <div class="span2"><h3>Add</h3></div>
+           <div class="span8">
+
+
+<form name="add_quote" action="/quote/add/" method="post">
+      <input type="text" name="author" placeholder="Author"><br>
+      <textarea rows="4" class="input-xxlarge" name="quote" placeholder="Quote"></textarea><br>
+      <input type="text" name="description" class="input-xxlarge" placeholder="description"><br>
+      <input type="text" name="link" class="input-xxlarge" placeholder="link"><br>
+      <!-- input type="submit" name="submit" value="submit" />-->
+      <button type="submit" class="btn">Submit</button>
+</form>
+
+		   </div>
+           <div class="span2"></div>
+
+</div>
+
+
+<!-- GEMS -->
+<div class="container">
+	<hr>
+
+          <form name="add_relations" id="add_relations" method="post" action="/Quote/addtag">
+          <?php
+			foreach ( $quotes as $quote ) {
+		  ?>
+          <div class="row-fluid gembox">
+			<div class="span2"><input type="checkbox" name="qid[]" value="<?php echo $quote['id']?>" /></div>
+            <div class="span8">
+              <p ><?php echo $quote['author']?></p>
+              <p ><a href="/quote/show/id/<?php echo $quote['id']?>"><?php echo $quote['quote']?></a></p>
+              
+              <p><?php echo $quote['description']?></p>
+              
+              <p class="pull-right"><a  href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=2115890114',u=z||d.location,p=['&url=',e(u),'&title=',e(t||d.title),'&source=',e(r),'&sourceUrl=',e(l),'&content=',c||'gb2312','&pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','','<?php echo $quote['quote']?> - <?php echo $quote['author']?>', 'http://t.bbwc.cn/quote/show/id/<?php echo $quote['id']?>', 'utf-8'));"><i class="icon-share"></i><small>分享到微博</small></a></p>
+              
+              <?php 
+			if(is_array($quote['tags']) && count($quote['tags'])){
+				echo "<p><i class=\"icon-tag\"></i> <small>";
+				foreach($quote['tags'] as $tag){
+					echo "<a href=\"javascript(0);\" name=\"deltag\" qid=\"".$quote['id']."\" tid=\"".$tag['id']."\">".$tag['tag']."</a> ";
+				}
+				echo "</small></p>";
+			}
+			?>
+                          
+            </div><!--/span-->
+			<div class="span2">[<a href="/quote/del/id/<?php echo $quote['id']?>">删除</a>]</div>
+			
+          </div><!--/row-->
+          <?php }?>
+          <input name="tid" value="" type="hidden" id="tid" />
+          </form>
+          
+</div>
+
+
+<!-- TAG -->
+<div class="container">
+<hr>
+<div class="row-fluid gembox">
+	<div class="span8">
+	<legend>Tags</legend>
+	<table class="table table-condensed table-striped">
+	<thead>
+	<tr>
+	<th>add Tag</th>
+	<th>delete</th>
+	</tr>
+	</thead>
+
+	<?php
+		foreach ( $tags as $tag ) {
+	?>
+	<tr>
+	<td><a href="javascript:void(0);" value="<?php echo $tag['id']?>" name="tags[]"><?php echo $tag['tag']?></a></td>
+	<td><a href="/tag/del/id/<?php echo $tag['id']?>">delete</a></td>
+	</tr>
+	<?php }?>
+
+	
+
+	</table>
+	
+
+
+	</div>
+
+	<div class="span4">
+
+	<form name="add_tag" action="/tag/add/" method="post">
+	<legend>Add New</legend>
+	<input type="text" name="tag" placeholder="new tag"><br>
+	<button type="submit" class="btn">Submit</button>
+	</form>
+	
+	</div>
+
+</div>
+</div>
+
+<!-- Footer -->
+<div class="container">
+
+      <hr>
+
+      <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2012 Modern Media</p>
+      </footer>
+
+
+</div>
+
+
+  </body>
 </html>
+
+
+

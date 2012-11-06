@@ -1,4 +1,5 @@
-function share(){
-
+function shareweibo(){
+	
+	
 
 }
